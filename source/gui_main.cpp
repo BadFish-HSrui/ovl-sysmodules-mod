@@ -262,7 +262,7 @@ tsl::elm::Element* GuiMain::createUI() {
     } else {
         tsl::elm::List* sysmoduleList = new tsl::elm::List();
 
-        sysmoduleList->addItem(new tsl::elm::CategoryHeader("动态插件 按切换自启动 按切换开关", true));
+        sysmoduleList->addItem(new tsl::elm::CategoryHeader("动态插件按切换自启动按切换开关", true));
         sysmoduleList->addItem(new tsl::elm::CustomDrawer([](tsl::gfx::Renderer* renderer, s32 x, s32 y, s32 w, s32 h) {
             renderer->drawString("  这些系统插件可以直接切换开关", false, x + 5, y + 20-7, 15, (tsl::warningTextColor));
         }), 30);
@@ -271,7 +271,7 @@ tsl::elm::Element* GuiMain::createUI() {
                 sysmoduleList->addItem(module.listItem);
         }
 
-        sysmoduleList->addItem(new tsl::elm::CategoryHeader("静态插件 按切换自启动", true));
+        sysmoduleList->addItem(new tsl::elm::CategoryHeader("静态插件按切换自启动", true));
         sysmoduleList->addItem(new tsl::elm::CustomDrawer([](tsl::gfx::Renderer* renderer, s32 x, s32 y, s32 w, s32 h) {
             renderer->drawString("  这些系统插件需要重启切换", false, x + 5, y + 20-7, 15, (tsl::warningTextColor));
         }), 30);
