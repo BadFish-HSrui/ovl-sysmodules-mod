@@ -38,6 +38,8 @@ GuiMain::GuiMain() {
 
     /* Iterate over contents folder. */
     for (const auto& entry : FsDirIterator(contentDir)) {
+        if (*(uint32_t*)entry.name == *(uint32_t*)&"0100" && *(uint64_t*)(&entry.name[4]) != *(uint64_t*)&"00000000")
+            continue;
         FsFile toolboxFile;
         std::snprintf(pathBuffer, FS_MAX_PATH, "/atmosphere/contents/%.*s/toolbox.json", FS_MAX_PATH - 35, entry.name);
         rc = fsFsOpenFile(&this->m_fs, pathBuffer, FsOpenMode_Read, &toolboxFile);
@@ -262,7 +264,7 @@ tsl::elm::Element* GuiMain::createUI() {
     } else {
         tsl::elm::List* sysmoduleList = new tsl::elm::List();
 
-        sysmoduleList->addItem(new tsl::elm::CategoryHeader("动态插件按切换自启动按切换开关", true));
+        sysmoduleList->addItem(new tsl::elm::CategoryHeader("动态插件  按切换自启动  按切换开关", true));
         sysmoduleList->addItem(new tsl::elm::CustomDrawer([](tsl::gfx::Renderer* renderer, s32 x, s32 y, s32 w, s32 h) {
             renderer->drawString("  这些系统插件可以直接切换开关", false, x + 5, y + 20-7, 15, (tsl::warningTextColor));
         }), 30);
@@ -271,7 +273,7 @@ tsl::elm::Element* GuiMain::createUI() {
                 sysmoduleList->addItem(module.listItem);
         }
 
-        sysmoduleList->addItem(new tsl::elm::CategoryHeader("静态插件按切换自启动", true));
+        sysmoduleList->addItem(new tsl::elm::CategoryHeader("静态插件  按切换自启动", true));
         sysmoduleList->addItem(new tsl::elm::CustomDrawer([](tsl::gfx::Renderer* renderer, s32 x, s32 y, s32 w, s32 h) {
             renderer->drawString("  这些系统插件需要重启切换", false, x + 5, y + 20-7, 15, (tsl::warningTextColor));
         }), 30);
