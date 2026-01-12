@@ -314,8 +314,10 @@ tsl::elm::Element* GuiMain::createUI() {
             renderer->drawString(" These sysmodules can be toggled at any time.", false, x + 5, y + 13, 15, tsl::warningTextColor);
         }), 30);
         for (const auto& module : this->m_sysmoduleListItems) {
-            if (!module.needReboot)
+            if (!module.needReboot) {
+                module.listItem->enableShortHoldKey();
                 sysmoduleList->addItem(module.listItem);
+            }
         }
 
         sysmoduleList->addItem(new tsl::elm::CategoryHeader("Static   Auto Start", true));
@@ -324,6 +326,7 @@ tsl::elm::Element* GuiMain::createUI() {
         }), 30);
         for (const auto& module : this->m_sysmoduleListItems) {
             if (module.needReboot) {
+                module.listItem->enableShortHoldKey();
                 module.listItem->disableClickAnimation();
                 sysmoduleList->addItem(module.listItem);
             }
