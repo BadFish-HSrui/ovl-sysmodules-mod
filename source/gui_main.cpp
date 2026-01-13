@@ -314,8 +314,10 @@ tsl::elm::Element* GuiMain::createUI() {
             renderer->drawString("  这些系统插件可以直接切换开关", false, x + 5, y + 13, 15, tsl::warningTextColor);
         }), 30);
         for (const auto& module : this->m_sysmoduleListItems) {
-            if (!module.needReboot)
+            if (!module.needReboot) {
+                module.listItem->enableShortHoldKey();
                 sysmoduleList->addItem(module.listItem);
+            }
         }
 
         sysmoduleList->addItem(new tsl::elm::CategoryHeader("静态插件  按切换自启动", true));
@@ -324,6 +326,7 @@ tsl::elm::Element* GuiMain::createUI() {
         }), 30);
         for (const auto& module : this->m_sysmoduleListItems) {
             if (module.needReboot) {
+                module.listItem->enableShortHoldKey();
                 module.listItem->disableClickAnimation();
                 sysmoduleList->addItem(module.listItem);
             }
